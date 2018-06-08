@@ -1,3 +1,11 @@
+.dots, .food, .snake {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+         -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 .app {
   display: flex;
   justify-content: center;
@@ -13,18 +21,26 @@
 }
 
 .snake {
+  padding: 0;
+  margin: 0;
   width: 10px;
   height: 10px;
   background-color: white;
 }
 
 .food {
+  padding: 0;
+  margin: 0;
   width: 10px;
   height: 10px;
   background: pink;
+  border-top: 0;
+  /* border: 1px solid blue; */
 }
 
 .field-600 {
+  padding: 0;
+  margin: 0;
   width: 600px;
   border: 1px solid black;
   display: flex;
@@ -33,6 +49,8 @@
 }
 
 .field-320 {
+  padding: 0;
+  margin: 0;
   width: 320px;
   border: 1px solid black;
   display: flex;
@@ -41,6 +59,8 @@
 }
 
 .field-350 {
+  padding: 0;
+  margin: 0;
   width: 320px;
   border: 1px solid black;
   display: flex;
