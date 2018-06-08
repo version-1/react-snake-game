@@ -24,13 +24,30 @@
   background: pink;
 }
 
-.field {
+.field-600 {
   width: 600px;
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
 }
+
+.field-320 {
+  width: 320px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+.field-350 {
+  width: 320px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
 .operator {
   padding: 10px;
   display: flex;

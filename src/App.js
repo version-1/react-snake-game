@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Field from './Field';
 
 const SIZE = 60
-const START_X = 30
-const START_Y = 30
+const START_X = SIZE / 2
+const START_Y = SIZE / 2
 const START_LENGTH = 1
 
 class App extends Component {

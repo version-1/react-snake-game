@@ -19,7 +19,7 @@ class Field extends Component {
       history: [cursor],
       length,
       direction: 'down',
-      status: 'prepare'
+      status: 'preparing'
     }
 
     if(init){
@@ -39,10 +39,6 @@ class Field extends Component {
     if(codes[e.keyCode]){
       this.setDirection(codes[e.keyCode])
     }
-  }
-
-  get isStarting(){
-    return this.state.status === 'starting'
   }
 
   get cursor(){
@@ -93,16 +89,41 @@ class Field extends Component {
     this.initialize(this.cursor, this.props.length, false)
   }
 
+  /* status 管理　*/
   start = () => {
     this.setState({status: 'starting'})
     this.interval = setInterval(() => this.move(this.state.direction), this.props.interval)
   }
-  clear = () => this.setState({status: 'cleared'})
+  clear = () => {
+    clearInterval(this.interval)
+    this.setState({status: 'cleared'})
+  }
   suspended = () => {
     clearInterval(this.interval)
     this.setState({status: 'suspended'})
   }
-  over = () => this.setState({status: 'over'})
+  over = () => {
+    clearInterval(this.interval)
+    this.setState({status: 'over'})
+  }
+
+  get isPreparing(){
+    return this.state.status === 'preparing'
+  }
+
+  get isStarting(){
+    return this.state.status === 'starting'
+  }
+
+  get isSuspended(){
+    return this.state.status === 'suspended'
+  }
+
+  get isOver(){
+    return this.state.status === 'over'
+  }
+
+  /* status 管理　*/
 
   move = (direction) => {
     if(this.bannedDirection === direction){
@@ -120,6 +141,7 @@ class Field extends Component {
     }
     this.update(nextDirection, newCursor, cursor)
   }
+  /* status 管理　*/
 
   isConflicted(cursor) {
     const {size} = this.props
@@ -127,11 +149,14 @@ class Field extends Component {
     || (cursor.x > size || cursor.y > size)
   }
 
+　/* reducer　*/
   update = (direction, newCursor, prevCursor) => {
     const {size} = this.props
     const {history, dots, length} = this.state
     const index = getIndex(size, newCursor.x, newCursor.y)
     const isFood = dots[index - 1] === 'food'
+    const isSelf = dots[index - 1] === 'snake'
+    if (isSelf) { return this.over()}
     const reducers = [
       (index, dots) => snakenize(index, dots),
       (index, dots) => this.eraceFootprint(dots),
@@ -149,6 +174,7 @@ class Field extends Component {
     })
   }
 
+  /* action */
   eraceFootprint = (dots) => {
     const {size} = this.props
     const { length, history } = this.state
@@ -166,14 +192,7 @@ class Field extends Component {
     const index = Math.floor( Math.random() * size * size );
     return foodnize(index, dots)
   }
-
-  eat = (target, dots) => {
-    const {length} = this.state
-    if (target === 'food'){
-      return length + 1
-    }
-    return length
-  }
+  /* action */
 
   renderDots(){
     const {size} = this.props
@@ -195,10 +214,10 @@ class Field extends Component {
     this.setState({ direction })
   }
   render() {
-    const { length } = this.state
+    const { length, status } = this.state
     return (
       <div>
-        <div className="field">
+        <div className='field field-600'>
           {this.renderDots()}
         </div>
         <div className="operator">
@@ -209,12 +228,13 @@ class Field extends Component {
             <button onClick={() => this.setDirection('left')}>left</button>
           </div>
           <div className="status">
-            <button onClick={() => this.start()}>start</button>
-            <button onClick={() => this.suspended()}>stop</button>
+            { (this.isSuspended || this.isPreparing ) && <button onClick={() => this.start()}>start</button>}
+            { this.isStarting && <button onClick={() => this.suspended()}>stop</button> }
             <button onClick={() => this.restart()}>restart</button>
           </div>
           <div className="info">
-            <span>length : {length}</span>
+            <div>length : {length}</div>
+            <div>status : {status}</div>
           </div>
         </div>
       </div>
