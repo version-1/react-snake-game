@@ -1,3 +1,8 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .dots {
   padding: 0;
@@ -14,6 +19,8 @@
 }
 
 .food {
+  width: 10px;
+  height: 10px;
   background: pink;
 }
 
@@ -24,9 +31,14 @@
   flex-wrap: wrap;
   align-content: space-around;
 }
-
-.app {
+.operator {
+  padding: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.status {
+  margin-left: auto;
+}
+.info {
+  margin-left: auto;
 }

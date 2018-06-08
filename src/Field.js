@@ -8,23 +8,25 @@ const DOWN_KEY_CODE = 40
 class Field extends Component {
   constructor(props){
     super(props)
-    const cursor = { x: props.startX, y: props.startY}
-    this.state = {
-      dots: this.dots,
-      cursor,
-      history: [cursor],
-      direction: 'down',
-      length: props.length,
-    }
+    this.initialize(this.cursor, props.length)
     document.addEventListener('keydown', (e) => this.handleOnkeyPress(e))
   }
 
-  componentDidMount(){
-    this.interval = setInterval(() => this.move(this.state.direction), this.props.interval)
-  }
+  initialize(cursor, length, init = true){
+    const initalState = {
+      dots: this.food(this.dots),
+      cursor,
+      history: [cursor],
+      length,
+      direction: 'down',
+      status: 'prepare'
+    }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+    if(init){
+      this.state = initalState
+    }else{
+      this.setState(initalState)
+    }
   }
 
   handleOnkeyPress(e){
@@ -37,6 +39,15 @@ class Field extends Component {
     if(codes[e.keyCode]){
       this.setDirection(codes[e.keyCode])
     }
+  }
+
+  get isStarting(){
+    return this.state.status === 'starting'
+  }
+
+  get cursor(){
+    const {startX, startY} = this.props
+    return { x: startX, y: startY}
   }
 
   get dots() {
@@ -76,6 +87,23 @@ class Field extends Component {
     return directions[direction]
   }
 
+  restart = () => {
+    clearInterval(this.interval)
+    this.setState({status: 'prearing'})
+    this.initialize(this.cursor, this.props.length, false)
+  }
+
+  start = () => {
+    this.setState({status: 'starting'})
+    this.interval = setInterval(() => this.move(this.state.direction), this.props.interval)
+  }
+  clear = () => this.setState({status: 'cleared'})
+  suspended = () => {
+    clearInterval(this.interval)
+    this.setState({status: 'suspended'})
+  }
+  over = () => this.setState({status: 'over'})
+
   move = (direction) => {
     if(this.bannedDirection === direction){
       // 逆方向は無視
@@ -101,13 +129,22 @@ class Field extends Component {
 
   update = (direction, newCursor, prevCursor) => {
     const {size} = this.props
-    const {history, dots} = this.state
+    const {history, dots, length} = this.state
     const index = getIndex(size, newCursor.x, newCursor.y)
-    const newDots = snakenize(index, dots)
+    const isFood = dots[index - 1] === 'food'
+    const reducers = [
+      (index, dots) => snakenize(index, dots),
+      (index, dots) => this.eraceFootprint(dots),
+      (index, dots) => {
+        return isFood ? this.food(dots) : dots
+      }
+    ]
+    const newDots = reducers.reduce( (acc, reducer) => reducer(index, acc), dots)
     this.setState({
-      dots: this.eraceFootprint(newDots),
+      dots: newDots,
       cursor: newCursor,
       history: [...history, newCursor],
+      length: isFood ? length + 1 : length,
       direction
     })
   }
@@ -122,6 +159,20 @@ class Field extends Component {
     const cursor = history[aIndex]
     const index = getIndex(size, cursor.x, cursor.y)
     return erase(index, dots)
+  }
+
+  food = (dots) => {
+    const {size} = this.props
+    const index = Math.floor( Math.random() * size * size );
+    return foodnize(index, dots)
+  }
+
+  eat = (target, dots) => {
+    const {length} = this.state
+    if (target === 'food'){
+      return length + 1
+    }
+    return length
   }
 
   renderDots(){
@@ -144,15 +195,28 @@ class Field extends Component {
     this.setState({ direction })
   }
   render() {
+    const { length } = this.state
     return (
       <div>
         <div className="field">
           {this.renderDots()}
         </div>
-        <button onClick={() => this.setDirection('up')}>up</button>
-        <button onClick={() => this.setDirection('down')}>down</button>
-        <button onClick={() => this.setDirection('right')}>right</button>
-        <button onClick={() => this.setDirection('left')}>left</button>
+        <div className="operator">
+          <div className="move">
+            <button onClick={() => this.setDirection('up')}>up</button>
+            <button onClick={() => this.setDirection('down')}>down</button>
+            <button onClick={() => this.setDirection('right')}>right</button>
+            <button onClick={() => this.setDirection('left')}>left</button>
+          </div>
+          <div className="status">
+            <button onClick={() => this.start()}>start</button>
+            <button onClick={() => this.suspended()}>stop</button>
+            <button onClick={() => this.restart()}>restart</button>
+          </div>
+          <div className="info">
+            <span>length : {length}</span>
+          </div>
+        </div>
       </div>
     );
   }
@@ -161,6 +225,7 @@ class Field extends Component {
 
 const erase = (index, array) => replace('dots', index, array)
 const snakenize = (index, array) => replace('snake', index, array)
+const foodnize = (index, array) => replace('food', index, array)
 
 /*
  * @param str 任意の文字列
