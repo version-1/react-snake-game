@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Field from './components/Field';
 import Pannel from './components/Pannel';
+import Header from './components/Header';
 import { SIZE, START_X, START_Y, START_LENGTH } from './Constant';
 import { MAP_KEY_DIRECTION, isBannedDirection, move } from './Directions';
 import { getIndex, isSelf, isFood, newDots, initDots } from './Helper';
@@ -20,7 +21,7 @@ class App extends Component {
       length,
       direction: 'down',
       status: 'preparing',
-      interval: 100
+      interval: 10
     };
   }
 
@@ -82,12 +83,6 @@ class App extends Component {
     });
   };
 
-  /* status 管理　*/
-  // restart = () => {
-  //   clearInterval(this.interval);
-  //   this.setState(this.initialState(this.cursor, START_LENGTH));
-  // };
-
   start = () => {
     this.setState({ status: 'starting' });
     this.interval = setInterval(
@@ -113,12 +108,21 @@ class App extends Component {
     const { status, dots, cursor, history, length } = this.state;
     return (
       <div className="app">
+        <Header
+          setDirection={direction => this.setDirection(direction)}
+          start={this.start}
+          stop={this.suspended}
+          restart={this.restart}
+          clear={this.clear}
+          status={status}
+          length={length}
+        />
         <Field
           dots={dots}
           history={history}
           length={length}
           interval={10}
-          size={SIZE}
+          size={this.size}
           cursor={cursor}
           over={this.over}
         />

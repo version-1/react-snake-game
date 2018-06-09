@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Move from './panels/Move';
-import Status from './panels/Status';
-import Info from './panels/Info';
 
 class Pannel extends Component {
   render() {
@@ -9,8 +7,6 @@ class Pannel extends Component {
     return (
       <div className="operator">
         <Move setDirection={setDirection} />
-        <Status status={status} start={start} stop={stop} restart={restart} />
-        <Info length={length} status={status} />
       </div>
     );
   }
