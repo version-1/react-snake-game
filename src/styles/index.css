@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .dots {
@@ -35,7 +36,6 @@
   height: 10px;
   background: pink;
   border-top: 0;
-  /* border: 1px solid blue; */
 }
 
 .field-600 {
@@ -69,6 +69,7 @@
 }
 
 .operator {
+  width: 600px;
   padding: 10px;
   display: flex;
 }
@@ -78,4 +79,26 @@
 }
 .info {
   margin-left: auto;
+}
+
+.move {
+  display: flex;
+  flex-direction: column;
+}
+
+.move-row{
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  display: block;
+  border: 1px solid lightgray;
+}
+
+.btn.void {
+  border: 0px;
 }

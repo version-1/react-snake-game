@@ -19,7 +19,8 @@ class App extends Component {
       history: [cursor],
       length,
       direction: 'down',
-      status: 'preparing'
+      status: 'preparing',
+      interval: 100
     };
   }
 
@@ -50,28 +51,25 @@ class App extends Component {
     }
   }
 
-  setDirection(direction) {
-    if (this.bannedDirection === direction) {
-      // 逆方向は無視
+  setDirection(nextDirection) {
+    const {direction} = this.state
+    if(direction === nextDirection) {return}
+    if (isBannedDirection(nextDirection, direction)) {
       return;
     }
-    this.setState({ direction });
+    this.setState({ direction: nextDirection });
   }
 
-  move(nextdirection) {
-    const { size, cursor, direction } = this.state;
-    if (isBannedDirection(nextdirection, direction)) {
-      return;
-    }
-
-    const newState = move(size, cursor, direction);
+  move() {
+    const { cursor, direction } = this.state;
+    const newState = move(this.size, cursor, direction);
     this.update(newState.direction, newState.cursor, cursor);
   }
 
   update = (newDirection, newCursor, prevCursor) => {
     const { history, dots, length } = this.state;
     const index = getIndex(this.size, newCursor.x, newCursor.y);
-    if (isSelf(dots, index)) {
+    if (isSelf(index, dots)) {
       return this.over();
     }
 
@@ -85,16 +83,16 @@ class App extends Component {
   };
 
   /* status 管理　*/
-  restart = () => {
-    clearInterval(this.interval);
-    this.setState(this.initialState(this.cursor, START_LENGTH));
-  };
+  // restart = () => {
+  //   clearInterval(this.interval);
+  //   this.setState(this.initialState(this.cursor, START_LENGTH));
+  // };
 
   start = () => {
     this.setState({ status: 'starting' });
     this.interval = setInterval(
-      () => this.move(this.state.direction),
-      this.props.interval
+      () => this.move(),
+      this.state.interval
     );
   };
   clear = () => {

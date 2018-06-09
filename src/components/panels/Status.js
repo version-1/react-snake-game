@@ -29,7 +29,7 @@ class Status extends Component {
           <button onClick={() => start()}>start</button>
         )}
         {this.isStarting && <button onClick={() => stop()}>stop</button>}
-        <button onClick={() => restart()}>restart</button>
+        {/*<button onClick={() => restart()}>restart</button>*/}
       </div>
     );
   }

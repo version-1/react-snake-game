@@ -6,9 +6,6 @@ import {
 } from './Constant';
 
 export const move = (size, cursor, direction) => {
-  if (bannedDirection(direction) === direction) {
-    return; // 逆方向は無視
-  }
 
   let nextCursor = newCursor(cursor, direction);
   let nextDirection = direction;
@@ -25,15 +22,24 @@ export const move = (size, cursor, direction) => {
 };
 
 const isConflicted = (size, cursor) => {
-  return cursor.x <= 0 || cursor.y <= 0 || (cursor.x > size || cursor.y > size);
+  return (cursor.x <= 0 || cursor.y <= 0) || (cursor.x > size || cursor.y >
+    size);
 };
 
 export const newCursor = (cursor, direction) => {
   const directions = {
-    up: { ...cursor, y: cursor.y - 1 },
-    down: { ...cursor, y: cursor.y + 1 },
-    left: { ...cursor, x: cursor.x - 1 },
-    right: { ...cursor, x: cursor.x + 1 }
+    up: { ...cursor,
+      y: cursor.y - 1
+    },
+    down: { ...cursor,
+      y: cursor.y + 1
+    },
+    left: { ...cursor,
+      x: cursor.x - 1
+    },
+    right: { ...cursor,
+      x: cursor.x + 1
+    }
   };
 
   return directions[direction];
@@ -60,6 +66,6 @@ const BANNED_DIRECTIONS = {
   right: 'left'
 };
 
-const bannedDirection = direction => BANNED_DIRECTIONS[direction];
-export const isBannedDirection = (nextDirection, prevDirection) =>
-  bannedDirection[nextDirection] === prevDirection;
+export const isBannedDirection = (nextDirection, prevDirection) => {
+  return BANNED_DIRECTIONS[prevDirection] === nextDirection;
+}
