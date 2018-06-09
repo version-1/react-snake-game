@@ -1,4 +1,4 @@
-.dots, .food, .snake {
+*, *:after {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
          -o-box-sizing: border-box;
@@ -18,7 +18,7 @@
   margin: 0;
   width: 10px;
   height: 10px;
-  background-color: black;
+  background-color: #191919;
 }
 
 .snake {
@@ -42,7 +42,6 @@
   padding: 0;
   margin: 0;
   width: 600px;
-  border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
@@ -52,7 +51,6 @@
   padding: 0;
   margin: 0;
   width: 320px;
-  border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
@@ -62,7 +60,6 @@
   padding: 0;
   margin: 0;
   width: 320px;
-  border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
@@ -70,35 +67,61 @@
 
 .operator {
   width: 600px;
-  padding: 10px;
   display: flex;
+  background: #080808;
+  border-top: 1px solid #d3d3d32e;
 }
 
-.status {
-  margin-left: auto;
+@media only screen and (min-width: 600px)  {
+  .operator{
+    display: none;
+  }
 }
+
+.header {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+  background: #080808;
+  border-bottom: 1px solid #d3d3d32e;
+  color: white;
+}
+
 .info {
-  margin-left: auto;
+  margin: 10px;
 }
 
 .move {
+  border-top: 0;
   display: flex;
-  flex-direction: column;
+  width: 100%;
 }
 
-.move-row{
-  display: flex;
-  align-items: center;
+.move .col {
+  width: 100%;
 }
 
 .btn {
-  width: 30px;
-  height: 30px;
+  padding: 30px;
   text-align: center;
   display: block;
-  border: 1px solid lightgray;
+  border: 1px solid white;
+  background: #027fff;
+  color: white;
+  font-weight: bold;
 }
 
-.btn.void {
+.btn-side {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn.btn-status {
+  background: #00d22d;
+  border-radius: 0;
   border: 0px;
+  padding: 10px;
+  margin: 10px;
 }

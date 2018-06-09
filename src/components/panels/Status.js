@@ -26,10 +26,9 @@ class Status extends Component {
     return (
       <div className="status">
         {(this.isSuspended || this.isPreparing) && (
-          <button onClick={() => start()}>start</button>
+          <div className="btn btn-status" onClick={() => start()}>start</div>
         )}
-        {this.isStarting && <button onClick={() => stop()}>stop</button>}
-        {/*<button onClick={() => restart()}>restart</button>*/}
+        {this.isStarting && <div className="btn btn-status" onClick={() => stop()}>stop</div>}
       </div>
     );
   }

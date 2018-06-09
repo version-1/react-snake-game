@@ -5,8 +5,8 @@ class Info extends Component {
     const { length, status } = this.props;
     return (
       <div className="info">
-        <div>length : {length}</div>
         <div>status : {status}</div>
+        <div>length : {length}</div>
       </div>
     );
   }
