@@ -17,9 +17,7 @@ class Field extends Component {
       return <div />;
     }
     return (
-      <div>
-        <div className="field field-600">{this.renderDots(size, dots)}</div>
-      </div>
+      <div className="field field-600">{this.renderDots(size, dots)}</div>
     );
   }
 }

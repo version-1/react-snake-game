@@ -1,10 +1,10 @@
 export const erase = (index, array) => replace('dots', index, array);
 export const snakenize = (index, array) => replace('snake', index, array);
 export const foodnize = (index, array) => replace('food', index, array);
-export const eat = (index, array) => {
+export const eat = (index, size, array) => {
   if (isFood(index, array)) {
-    const index = Math.floor(Math.random() * this.size * this.size);
-    return foodnize(index, array);
+    const foodIndex = Math.floor(Math.random() * size * size);
+    return foodnize(foodIndex, array);
   }
   return array;
 };
@@ -30,9 +30,9 @@ export const initDots = (initDots, initSnakeIndex, initFoodIndex) =>
 
 export const newDots = (index, size, length, history, prevDots) =>
   reducer(prevDots, [
+    dots => eat(index, size, dots),
     dots => snakenize(index, dots),
-    dots => eraceFootprint(size, length, dots, history),
-    dots => eat(index, dots)
+    dots => eraceFootprint(size, length, dots, history)
   ]);
 
 /*
