@@ -11,7 +11,6 @@ class App extends Component {
     super(props);
     this.state = this.initialState(this.initCursor, this.initLength);
     document.addEventListener('keydown', e => this.handleOnkeyPress(e));
-    window.addEventListener( "resize", e => this.handleResize(e));
   }
 
   initialState(cursor, length) {
@@ -23,7 +22,7 @@ class App extends Component {
       width: this.width,
       direction: 'down',
       status: 'preparing',
-      interval: 10
+      interval: 250
     };
   }
 
@@ -35,7 +34,7 @@ class App extends Component {
   }
 
   get width(){
-    return window.innerWidth < MAX_WIDTH ? window.innerWidth : MAX_WIDTH
+    return window.innerWidth < MAX_WIDTH ? window.innerWidth - 5 : MAX_WIDTH
   }
 
   get size() {
@@ -57,11 +56,6 @@ class App extends Component {
     if (MAP_KEY_DIRECTION[e.keyCode]) {
       this.setDirection(MAP_KEY_DIRECTION[e.keyCode]);
     }
-  }
-
-  handleResize(e){
-    clearTimeout( timeoutId ) ;
-    const timeoutId = setTimeout('location.reload()', 100 ) ;
   }
 
   setDirection(nextDirection) {
@@ -120,15 +114,6 @@ class App extends Component {
     const { status, dots, cursor, history, length, width } = this.state;
     return (
       <div className="app">
-        <Header
-          width={width}
-          start={this.start}
-          stop={this.suspended}
-          restart={this.restart}
-          clear={this.clear}
-          status={status}
-          length={length}
-        />
         <Field
           dots={dots}
           history={history}
@@ -138,6 +123,15 @@ class App extends Component {
           size={this.size}
           cursor={cursor}
           over={this.over}
+        />
+        <Header
+          width={width}
+          start={this.start}
+          stop={this.suspended}
+          restart={this.restart}
+          clear={this.clear}
+          status={status}
+          length={length}
         />
         <Pannel
           width={width}
