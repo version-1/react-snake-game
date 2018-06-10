@@ -140,37 +140,25 @@ class App extends Component {
       interval
     } = this.state;
     return (
-      <div className="app">
-        {status != 'starting' && <Header width={width} />}
-        <div className={`pannel-header width-${this.width}`}>
-          <Info
-            setSpeed={this.setSpeed}
-            interval={interval}
-            length={length}
-            status={status}
-          />
-        </div>
+      <div className={`app  width-${this.width}`}>
+        {status != 'starting' && <Header />}
+        <Info
+          setSpeed={this.setSpeed}
+          interval={interval}
+          length={length}
+          status={status}
+        />
         <Field
           dots={dots}
           history={history}
           length={length}
-          width={width}
-          interval={10}
+          width={this.width}
           size={this.size}
           cursor={cursor}
           over={this.over}
         />
-        <Status
-          status={status}
-          start={this.start}
-          stop={this.suspended}
-          width={width}
-        />
-        <div className={`pannel width-${width}`}>
-          <div className="pannel-body">
-            <Move setDirection={this.setDirection} />
-          </div>
-        </div>
+        <Status status={status} start={this.start} stop={this.suspended} />
+        <Move setDirection={this.setDirection} />
       </div>
     );
   }
