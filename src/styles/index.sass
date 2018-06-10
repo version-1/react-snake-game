@@ -49,8 +49,8 @@ body
 
 @for $i from 1 through 600
   .dots-for-width-#{$i}
-    width: #{$i / 60}px
-    height: #{$i / 60}px
+    width: #{$i / 30}px
+    height: #{$i / 30}px
 
 .pannel
   display: flex
@@ -157,6 +157,15 @@ body
 .stop
   background: orange
   border-bottom: 3px solid #bb7a03
+  &:hover
+    border-bottom: 0
+  &:active
+    border-bottom: 0
+    opacity: 0.8
+
+.over
+  background: red
+  border-bottom: 3px solid red
   &:hover
     border-bottom: 0
   &:active
