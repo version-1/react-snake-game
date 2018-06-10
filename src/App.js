@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import Field from './components/Field';
 import Pannel from './components/Pannel';
-import Header from './components/Header';
-import { SIZE, START_X, START_Y, START_LENGTH, MAX_WIDTH } from './Constant';
+import {
+  SIZE,
+  START_X,
+  START_Y,
+  START_LENGTH,
+  MAX_WIDTH,
+  DEFAULT_SPEED,
+  MIN_SPEED,
+  MAX_SPEED
+} from './Constant';
 import { MAP_KEY_DIRECTION, isBannedDirection, move } from './Directions';
 import { getIndex, isSelf, isFood, newDots, initDots } from './Helper';
+import Status from './components/panels/Status';
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +31,7 @@ class App extends Component {
       width: this.width,
       direction: 'down',
       status: 'preparing',
-      interval: 250
+      interval: DEFAULT_SPEED
     };
   }
 
@@ -33,8 +42,8 @@ class App extends Component {
     return START_LENGTH;
   }
 
-  get width(){
-    return window.innerWidth < MAX_WIDTH ? window.innerWidth - 5 : MAX_WIDTH
+  get width() {
+    return window.innerWidth < MAX_WIDTH ? window.innerWidth : MAX_WIDTH;
   }
 
   get size() {
@@ -59,12 +68,24 @@ class App extends Component {
   }
 
   setDirection(nextDirection) {
-    const {direction} = this.state
-    if(direction === nextDirection) {return}
+    const { direction } = this.state;
+    if (direction === nextDirection) {
+      return;
+    }
     if (isBannedDirection(nextDirection, direction)) {
       return;
     }
     this.setState({ direction: nextDirection });
+  }
+
+  setSpeed(input) {
+    const { status } = this.state;
+    if (status === 'starting') {
+      return;
+    }
+    let interval = Math.max(MIN_SPEED, input || 10);
+    interval = Math.min(MAX_SPEED, interval);
+    this.setState({ interval });
   }
 
   move() {
@@ -91,10 +112,7 @@ class App extends Component {
 
   start = () => {
     this.setState({ status: 'starting' });
-    this.interval = setInterval(
-      () => this.move(),
-      this.state.interval
-    );
+    this.interval = setInterval(() => this.move(), this.state.interval);
   };
   clear = () => {
     clearInterval(this.interval);
@@ -108,12 +126,22 @@ class App extends Component {
     clearInterval(this.interval);
     this.setState({ status: 'over' });
   };
-  /* status 管理　*/
 
   render() {
-    const { status, dots, cursor, history, length, width } = this.state;
+    const {
+      status,
+      dots,
+      cursor,
+      history,
+      length,
+      width,
+      interval
+    } = this.state;
     return (
       <div className="app">
+        <div className={`header width-${width}`}>
+          <h1 className="h1">Snake Game</h1>
+        </div>
         <Field
           dots={dots}
           history={history}
@@ -124,18 +152,17 @@ class App extends Component {
           cursor={cursor}
           over={this.over}
         />
-        <Header
-          width={width}
+        <Status
+          status={status}
           start={this.start}
           stop={this.suspended}
-          restart={this.restart}
-          clear={this.clear}
-          status={status}
-          length={length}
+          width={width}
         />
         <Pannel
+          interval={interval}
           width={width}
           setDirection={direction => this.setDirection(direction)}
+          setSpeed={this.setSpeed.bind(this)}
           start={this.start}
           stop={this.suspended}
           restart={this.restart}

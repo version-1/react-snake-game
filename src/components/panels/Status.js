@@ -22,13 +22,19 @@ class Status extends Component {
   }
 
   render() {
-    const { start, stop } = this.props;
+    const { start, stop, width } = this.props;
     return (
-      <div className="status">
+      <div className={`status width-${width}`}>
         {(this.isSuspended || this.isPreparing) && (
-          <div className="btn btn-status" onClick={() => start()}>start</div>
+          <div className="btn btn-status start" onClick={() => start()}>
+            start
+          </div>
         )}
-        {this.isStarting && <div className="btn btn-status" onClick={() => stop()}>stop</div>}
+        {this.isStarting && (
+          <div className="btn btn-status stop" onClick={() => stop()}>
+            stop
+          </div>
+        )}
       </div>
     );
   }
