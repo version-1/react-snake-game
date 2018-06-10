@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Field from './components/Field';
-import Pannel from './components/Pannel';
+import Status from './components/Status';
+import Info from './components/Info';
+import Move from './components/Move';
+import Header from './components/Header';
 import {
   SIZE,
   START_X,
@@ -13,7 +16,6 @@ import {
 } from './Constant';
 import { MAP_KEY_DIRECTION, isBannedDirection, move } from './Directions';
 import { getIndex, isSelf, isFood, newDots, initDots } from './Helper';
-import Status from './components/panels/Status';
 
 class App extends Component {
   constructor(props) {
@@ -139,8 +141,14 @@ class App extends Component {
     } = this.state;
     return (
       <div className="app">
-        <div className={`header width-${width}`}>
-          <h1 className="h1">Snake Game</h1>
+        {status != 'starting' && <Header width={width} />}
+        <div className={`pannel-header width-${this.width}`}>
+          <Info
+            setSpeed={this.setSpeed}
+            interval={interval}
+            length={length}
+            status={status}
+          />
         </div>
         <Field
           dots={dots}
@@ -158,18 +166,11 @@ class App extends Component {
           stop={this.suspended}
           width={width}
         />
-        <Pannel
-          interval={interval}
-          width={width}
-          setDirection={direction => this.setDirection(direction)}
-          setSpeed={this.setSpeed.bind(this)}
-          start={this.start}
-          stop={this.suspended}
-          restart={this.restart}
-          clear={this.clear}
-          status={status}
-          length={length}
-        />
+        <div className={`pannel width-${width}`}>
+          <div className="pannel-body">
+            <Move setDirection={this.setDirection} />
+          </div>
+        </div>
       </div>
     );
   }
