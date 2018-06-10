@@ -10,6 +10,10 @@ body
   -ms-box-sizing: border-box
   box-sizing: border-box
 
+.root
+  display: flex
+  justify-content: center
+
 .app
   display: flex
   justify-content: center
@@ -17,6 +21,7 @@ body
   flex-direction: column
 
 .header
+  width: 100%
   text-align: center
   border: 1px solid #d8d8d8
   border-top: 0
@@ -38,6 +43,7 @@ body
   padding: 0
   margin: 0
   display: flex
+  width: 100%
   flex-direction: column
   align-content: space-around
 
@@ -52,25 +58,13 @@ body
     width: #{$i / 30}px
     height: #{$i / 30}px
 
-.pannel
-  display: flex
-  flex-direction: column
-  background: #080808
-
-.pannel-header
-  display: flex
-  justify-content: space-between
-  flex-direction: column
-  background: #080808
-  border-bottom: 1px solid #d3d3d32e
-  color: white
-
-.pannel-body
-  // background: white
 
 .info
   margin: 0px 10px
   text-align: center
+  background: #080808
+  color: white
+  width: 100%
 
 .move
   width: 100%
@@ -103,6 +97,7 @@ body
   color: white
 
 .status
+  width: 100%
 
 .btn
   padding: 10px
@@ -146,7 +141,7 @@ body
 
 .start
   background: #00d22d
-  border-bottom: 3px solid #008a1e
+  border-bottom: 5px solid #008a1e
   &:hover
     border-bottom: 0
   &:active
@@ -156,7 +151,7 @@ body
 
 .stop
   background: orange
-  border-bottom: 3px solid #bb7a03
+  border-bottom: 5px solid #bb7a03
   &:hover
     border-bottom: 0
   &:active
@@ -165,7 +160,7 @@ body
 
 .over
   background: red
-  border-bottom: 3px solid red
+  border-bottom: 5px solid #a90000
   &:hover
     border-bottom: 0
   &:active
