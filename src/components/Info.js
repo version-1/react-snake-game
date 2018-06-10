@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { SPEED_STEP_BY } from '../Constant';
 class Info extends Component {
   render() {
     const { length, status, interval, setSpeed } = this.props;
@@ -32,12 +32,15 @@ class Info extends Component {
                 disabled={status === 'starting'}
               />
               <div className="speed-pannel-icon">
-                <a className="up-arrow" onClick={() => setSpeed(interval + 50)}>
+                <a
+                  className="up-arrow"
+                  onClick={() => setSpeed(interval + SPEED_STEP_BY)}
+                >
                   ▲
                 </a>
                 <a
                   className="down-arrow"
-                  onClick={() => setSpeed(interval - 50)}
+                  onClick={() => setSpeed(interval - SPEED_STEP_BY)}
                 >
                   ▽
                 </a>

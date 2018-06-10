@@ -143,7 +143,7 @@ class App extends Component {
       <div className={`app  width-${this.width}`}>
         {status != 'starting' && <Header />}
         <Info
-          setSpeed={this.setSpeed}
+          setSpeed={this.setSpeed.bind(this)}
           interval={interval}
           length={length}
           status={status}
