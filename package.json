@@ -15,7 +15,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "build:css": "node-sass --include-path src/styles src/styles/index.sass public/assets/style.css",
+    "build:css":
+      "node-sass --include-path src/styles src/styles/index.sass public/assets/style.css",
     "watch:css": "nodemon -e scss -x \"npm run build:css\""
   },
   "devDependencies": {

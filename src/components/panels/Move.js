@@ -6,14 +6,28 @@ class Move extends Component {
     return (
       <div className="move">
         <div className="col">
-          <div className="btn btn-side" onClick={() => setDirection('left')}>←</div>
+          <div
+            className="btn btn-side btn-left"
+            onClick={() => setDirection('left')}
+          >
+            ←
+          </div>
         </div>
         <div className="col">
-          <div className="btn" onClick={() => setDirection('up')}>↑</div>
-          <div className="btn" onClick={() => setDirection('down')}>↓</div>
+          <div className="btn btn-up" onClick={() => setDirection('up')}>
+            ↑
+          </div>
+          <div className="btn btn-down" onClick={() => setDirection('down')}>
+            ↓
+          </div>
         </div>
         <div className="col">
-          <div className="btn btn-side" onClick={() => setDirection('right')}>→</div>
+          <div
+            className="btn btn-side btn-right"
+            onClick={() => setDirection('right')}
+          >
+            →
+          </div>
         </div>
       </div>
     );
