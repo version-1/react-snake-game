@@ -7,8 +7,8 @@ class Header extends Component {
     const { length, status, start, stop, restart, width } = this.props;
     return (
       <div className={`header width-${width}`}>
-        <Status status={status} start={start} stop={stop} restart={restart} />
         <Info length={length} status={status} />
+        <Status status={status} start={start} stop={stop} restart={restart} />
       </div>
     );
   }

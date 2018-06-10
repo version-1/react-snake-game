@@ -4248,7 +4248,8 @@ body {
   color: white; }
 
 .info {
-  margin: 10px; }
+  margin: 10px;
+  text-align: center; }
 
 .move {
   width: 100%;
