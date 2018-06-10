@@ -22,7 +22,7 @@ class Status extends Component {
   }
 
   render() {
-    const { start, stop, restart } = this.props;
+    const { start, stop } = this.props;
     return (
       <div className="status">
         {(this.isSuspended || this.isPreparing) && (

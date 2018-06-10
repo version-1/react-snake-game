@@ -21,21 +21,12 @@
   background-color: #191919;
 }
 
-.snake {
-  padding: 0;
-  margin: 0;
-  width: 10px;
-  height: 10px;
+.dots.snake {
   background-color: white;
 }
 
-.food {
-  padding: 0;
-  margin: 0;
-  width: 10px;
-  height: 10px;
+.dots.food {
   background: pink;
-  border-top: 0;
 }
 
 .field-600 {

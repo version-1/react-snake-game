@@ -1,0 +1,87 @@
+body
+  margin: 0px
+  padding: 0px
+
+*, *:after
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  -o-box-sizing: border-box
+  -ms-box-sizing: border-box
+  box-sizing: border-box
+
+.app
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+
+.dots
+  background-color: #191919
+.snake
+  background-color: white
+.food
+  background: pink
+
+.field
+  padding: 0
+  margin: 0
+  display: flex
+  flex-direction: column
+  align-content: space-around
+
+.row
+  display: flex
+@for $i from 1 through 600
+  .width-#{$i}
+    width: #{$i}px
+
+@for $i from 1 through 600
+  .dots-for-width-#{$i}
+    width: #{$i / 60}px
+    height: #{$i / 60}px
+
+.operator
+  display: flex
+  background: #080808
+  border-top: 1px solid #d3d3d32e
+
+.header
+  display: flex
+  justify-content: space-between
+  flex-direction: column
+  background: #080808
+  border-bottom: 1px solid #d3d3d32e
+  color: white
+
+
+.info
+  margin: 10px
+
+.move
+  width: 100%
+  border-top: 0
+  display: flex
+  .col
+    width: 100%
+
+.btn
+  padding: 10px
+  text-align: center
+  display: block
+  border: 1px solid white
+  background: #027fff
+  color: white
+  font-weight: bold
+
+.btn-side
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+
+.btn.btn-status
+  background: #00d22d
+  border-radius: 0
+  border: 0px
+  padding: 10px
+  margin: 10px
