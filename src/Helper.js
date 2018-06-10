@@ -3,13 +3,18 @@ export const snakenize = (index, array) => replace('snake', index, array);
 export const foodnize = (index, array) => replace('food', index, array);
 export const eat = (index, size, array) => {
   if (isFood(index, array)) {
-    const foodIndex = Math.floor(Math.random() * size * size);
+    let foodIndex = Math.floor(Math.random() * size * size);
+    while (index !== foodIndex && !isDots(foodIndex, array)) {
+      foodIndex = Math.floor(Math.random() * size * size);
+    }
+
     return foodnize(foodIndex, array);
   }
   return array;
 };
 
 export const isFood = (index, dots) => dots[index - 1] === 'food';
+export const isDots = (index, dots) => dots[index - 1] === 'dots';
 export const isSelf = (index, dots) => dots[index - 1] === 'snake';
 
 export const eraceFootprint = (size, length, dots, history) => {
