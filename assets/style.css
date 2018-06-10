@@ -16,10 +16,6 @@ body {
   flex-direction: column; }
 
 .dots {
-  padding: 0;
-  margin: 0;
-  width: 10px;
-  height: 10px;
   background-color: #191919; }
 
 .snake {
@@ -31,10 +27,12 @@ body {
 .field {
   padding: 0;
   margin: 0;
-  width: 600px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-content: space-around; }
+
+.row {
+  display: flex; }
 
 .width-1 {
   width: 1px; }
@@ -4237,18 +4235,11 @@ body {
   height: 10px; }
 
 .operator {
-  width: 600px;
   display: flex;
   background: #080808;
   border-top: 1px solid #d3d3d32e; }
 
-@media only screen and (min-width: 600px) {
-  .operator {
-    display: none; } }
-
 .header {
-  width: 100%;
-  max-width: 600px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -4260,15 +4251,14 @@ body {
   margin: 10px; }
 
 .move {
-  border-top: 0;
-  display: flex;
   width: 100%;
-  max-width: 600px; }
+  border-top: 0;
+  display: flex; }
   .move .col {
     width: 100%; }
 
 .btn {
-  padding: 30px;
+  padding: 10px;
   text-align: center;
   display: block;
   border: 1px solid white;
