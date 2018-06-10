@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 
 class Field extends Component {
-  renderDots(size, dots) {
-    return dots.map((item, index) => {
-      const x = (index % size) + 1;
-      const y = parseInt(index / size) + 1;
-      const className = `${item} i${index} x${x} y${y}`;
+  renderDots(size, width, dots) {
 
-      return <div key={index} className={className} />;
+    return new Array(size).fill('').map((item, y) => {
+      const offsets = dots.slice(y * size, (y + 1) * size)
+
+      return (<div key={`dots-${y + 1}`}className={`row  y${y + 1}`}>
+        {offsets.map( (item,x) => {
+          const index = ( (y) * size ) + (x + 1)
+          const className = `dots ${item} dots-for-width-${width} i${index} x${x + 1}`;
+          return <div key={`dots-${x + 1}-${y + 1}`} className={className} />
+        })}
+      </div>);
     });
   }
 
   render() {
-    const { size, dots } = this.props;
+    const { size, dots, width } = this.props;
     if (!dots) {
       return <div />;
     }
+    const className = `field width-${width}`
     return (
-      <div className="field field-600">{this.renderDots(size, dots)}</div>
+      <div className={className}>{this.renderDots(size, width, dots)}</div>
     );
   }
 }

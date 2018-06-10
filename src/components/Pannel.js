@@ -3,9 +3,9 @@ import Move from './panels/Move';
 
 class Pannel extends Component {
   render() {
-    const { length, status, start, stop, restart, setDirection } = this.props;
+    const { setDirection, width } = this.props;
     return (
-      <div className="operator">
+      <div className={`operator width-${width}`}>
         <Move setDirection={setDirection} />
       </div>
     );

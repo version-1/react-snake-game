@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Field from './components/Field';
 import Pannel from './components/Pannel';
 import Header from './components/Header';
-import { SIZE, START_X, START_Y, START_LENGTH } from './Constant';
+import { SIZE, START_X, START_Y, START_LENGTH, MAX_WIDTH } from './Constant';
 import { MAP_KEY_DIRECTION, isBannedDirection, move } from './Directions';
 import { getIndex, isSelf, isFood, newDots, initDots } from './Helper';
 
@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
     this.state = this.initialState(this.initCursor, this.initLength);
     document.addEventListener('keydown', e => this.handleOnkeyPress(e));
+    window.addEventListener( "resize", e => this.handleResize(e));
   }
 
   initialState(cursor, length) {
@@ -19,6 +20,7 @@ class App extends Component {
       cursor,
       history: [cursor],
       length,
+      width: this.width,
       direction: 'down',
       status: 'preparing',
       interval: 10
@@ -31,6 +33,11 @@ class App extends Component {
   get initLength() {
     return START_LENGTH;
   }
+
+  get width(){
+    return window.innerWidth < MAX_WIDTH ? window.innerWidth : MAX_WIDTH
+  }
+
   get size() {
     return SIZE;
   }
@@ -50,6 +57,11 @@ class App extends Component {
     if (MAP_KEY_DIRECTION[e.keyCode]) {
       this.setDirection(MAP_KEY_DIRECTION[e.keyCode]);
     }
+  }
+
+  handleResize(e){
+    clearTimeout( timeoutId ) ;
+    const timeoutId = setTimeout('location.reload()', 100 ) ;
   }
 
   setDirection(nextDirection) {
@@ -105,11 +117,11 @@ class App extends Component {
   /* status 管理　*/
 
   render() {
-    const { status, dots, cursor, history, length } = this.state;
+    const { status, dots, cursor, history, length, width } = this.state;
     return (
       <div className="app">
         <Header
-          setDirection={direction => this.setDirection(direction)}
+          width={width}
           start={this.start}
           stop={this.suspended}
           restart={this.restart}
@@ -121,12 +133,14 @@ class App extends Component {
           dots={dots}
           history={history}
           length={length}
+          width={width}
           interval={10}
           size={this.size}
           cursor={cursor}
           over={this.over}
         />
         <Pannel
+          width={width}
           setDirection={direction => this.setDirection(direction)}
           start={this.start}
           stop={this.suspended}
