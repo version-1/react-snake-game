@@ -1,4 +1,4 @@
-export const SIZE = 60;
+export const SIZE = 30;
 export const START_X = SIZE / 2;
 export const START_Y = SIZE / 2;
 export const START_LENGTH = 1;

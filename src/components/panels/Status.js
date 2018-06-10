@@ -35,6 +35,14 @@ class Status extends Component {
             stop
           </div>
         )}
+        {this.isOver && (
+          <div
+            className="btn btn-status over"
+            onClick={() => window.location.reload()}
+          >
+            Game Over
+          </div>
+        )}
       </div>
     );
   }
