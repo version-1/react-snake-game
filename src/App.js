@@ -158,7 +158,7 @@ class App extends Component {
           over={this.over}
         />
         <Status status={status} start={this.start} stop={this.suspended} />
-        <Move setDirection={this.setDirection} />
+        <Move setDirection={this.setDirection.bind(this)} />
       </div>
     );
   }
