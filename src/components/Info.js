@@ -29,7 +29,7 @@ class Info extends Component {
                 max={10000}
                 onChange={e => setSpeed(e.target.value)}
                 type="number"
-                disabled={status === 'starting'}
+                disabled={true}
               />
               <div className="speed-pannel-icon">
                 <a
