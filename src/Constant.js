@@ -3,7 +3,7 @@ export const START_X = SIZE / 2;
 export const START_Y = SIZE / 2;
 export const START_LENGTH = 1;
 
-export const MAX_WIDTH = 600;
+export const MAX_WIDTH = 400;
 
 export const MAX_SPEED = 500;
 export const DEFAULT_SPEED = 50;
