@@ -11,7 +11,6 @@ const FieldContent = props => {
         {offsets.map((item, x) => (
           <Dot x={x} y={y} width={width} size={size} item={item} />
         ))}
-        )}
       </div>
     );
   });

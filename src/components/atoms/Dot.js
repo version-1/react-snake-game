@@ -9,7 +9,7 @@ const Dot = props => {
 };
 
 const areEqual = (prevProps, nextProps) => {
-  return prevProps.item !== nextProps.item
+  return prevProps.item === nextProps.item
 }
 
-export default Dot
+export default React.memo(Dot, areEqual)

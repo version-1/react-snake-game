@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import Header from './components/atoms/Header';
 import Field from './components/molecules/Field';
 import Status from './components/molecules/Status';
-import Info from './components/Info';
-import Move from './components/Move';
-import Header from './components/Header';
+import Info from './components/organisms/Info';
+import Controller from './components/organisms/Controller';
 import {
   SIZE,
   START_X,
@@ -158,7 +158,7 @@ class App extends Component {
           over={this.over}
         />
         <Status status={status} start={this.start} stop={this.suspended} />
-        <Move setDirection={this.setDirection.bind(this)} />
+        <Controller setDirection={this.setDirection.bind(this)} />
       </div>
     );
   }
