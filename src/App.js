@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Field from './components/Field';
-import Status from './components/Status';
+import Field from './components/molecules/Field';
+import Status from './components/molecules/Status';
 import Info from './components/Info';
 import Move from './components/Move';
 import Header from './components/Header';
